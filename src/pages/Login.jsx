@@ -26,7 +26,7 @@ function Login() {
         const enteredUsername = username.trim();
         const enteredPassword = password.trim();
 
-        fetch("http://localhost:3000/users")
+        fetch("https://obtion-backend.onrender.com/users")
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -105,5 +105,6 @@ function Login() {
         </section>
     );
 }
+
 
 export default Login;

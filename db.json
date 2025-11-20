@@ -1,0 +1,22 @@
+{
+  "users": [
+    {
+      "id": "4695",
+      "name": "Jaskirat Singh",
+      "email": "jasstxm@gmail.com",
+      "password": "jass123"
+    },
+    {
+      "id": "52d3",
+      "name": "Jaijit Singh",
+      "email": "jai@gmail.com",
+      "password": "jai123"
+    },
+    {
+      "id": "8d0d",
+      "name": "Hirdepal Singh",
+      "email": "hirde@gmail.com",
+      "password": "hirde123"
+    }
+  ]
+}

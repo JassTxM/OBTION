@@ -1,0 +1,65 @@
+import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { 
+  faBold, faItalic, faHeading, faUnderline, 
+  faSuperscript, faSubscript, faStrikethrough, faListUl, 
+  faListOl, faCode, faQuoteRight, faLink, faImage
+} from '@fortawesome/free-solid-svg-icons';
+
+const Toolbar = ({ textAreaRef, text, onTextChange }) => {
+
+  const handleToolbarClick = (mdType) => {
+    const textarea = textAreaRef.current;
+    if (!textarea) return;
+
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const selectedText = text.substring(start, end);
+    
+    let insertText = '';
+    switch (mdType) {
+      case 'bold': insertText = `**${selectedText || 'bold text'}**`; break;
+      case 'italic': insertText = `_${selectedText || 'italic text'}_`; break;
+      case 'h1': insertText = `# ${selectedText || 'Heading 1'}`; break;
+      case 'underline': insertText = `<u>${selectedText || 'underline'}</u>`; break;
+      case 'sup': insertText = `<sup>${selectedText || 'superscript'}</sup>`; break;
+      case 'sub': insertText = `<sub>${selectedText || 'subscript'}</sub>`; break;
+      case 'strike': insertText = `~~${selectedText || 'strikethrough'}~~`; break;
+      case 'ul': insertText = `- ${selectedText || 'list item'}`; break;
+      case 'ol': insertText = `1. ${selectedText || 'list item'}`; break;
+      case 'code': insertText = `\`${selectedText || 'code'}\``; break;
+      case 'quote': insertText = `> ${selectedText || 'quote'}`; break;
+      case 'link': insertText = `[${selectedText || 'link text'}](url)`; break;
+      case 'image': insertText = `![${selectedText || 'alt text'}](url)`; break;
+      default: return;
+    }
+
+    const newText = text.substring(0, start) + insertText + text.substring(end);
+    onTextChange(newText); // Update parent state
+    
+    setTimeout(() => {
+        textarea.focus();
+        textarea.setSelectionRange(start + insertText.length, start + insertText.length);
+    }, 0);
+  };
+
+  return (
+    <div className="tool-bar">
+      <FontAwesomeIcon icon={faBold} onClick={() => handleToolbarClick('bold')} title="Bold" />
+      <FontAwesomeIcon icon={faItalic} onClick={() => handleToolbarClick('italic')} title="Italic" />
+      <FontAwesomeIcon icon={faHeading} onClick={() => handleToolbarClick('h1')} title="Heading" />
+      <FontAwesomeIcon icon={faUnderline} onClick={() => handleToolbarClick('underline')} title="Underline" />
+      <FontAwesomeIcon icon={faSuperscript} onClick={() => handleToolbarClick('sup')} title="Superscript" />
+      <FontAwesomeIcon icon={faSubscript} onClick={() => handleToolbarClick('sub')} title="Subscript" />
+      <FontAwesomeIcon icon={faStrikethrough} onClick={() => handleToolbarClick('strike')} title="Strikethrough" />
+      <FontAwesomeIcon icon={faListUl} onClick={() => handleToolbarClick('ul')} title="Bulleted List" />
+      <FontAwesomeIcon icon={faListOl} onClick={() => handleToolbarClick('ol')} title="Ordered List" />
+      <FontAwesomeIcon icon={faCode} onClick={() => handleToolbarClick('code')} title="Code Block" />
+      <FontAwesomeIcon icon={faQuoteRight} onClick={() => handleToolbarClick('quote')} title="Quote" />
+      <FontAwesomeIcon icon={faLink} onClick={() => handleToolbarClick('link')} title="Link" />
+      <FontAwesomeIcon icon={faImage} onClick={() => handleToolbarClick('image')} title="Image" />
+    </div>
+  );
+};
+
+export default Toolbar;

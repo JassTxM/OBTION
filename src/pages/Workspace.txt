@@ -1,0 +1,78 @@
+import React, { useState, useRef } from 'react';
+import { Link } from 'react-router-dom'; 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars, faRotate, faFloppyDisk } from '@fortawesome/free-solid-svg-icons';
+import SessionTimer from '../components/SessionTimer';
+import UserProfile from '../components/UserProfile';
+import Toolbar from '../components/Toolbar';
+import Chatbot from '../components/Chatbot';
+
+export default function Workspace() {
+  const [text, setText] = useState("");
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  
+  const textAreaRef = useRef(null);
+
+  return (
+    <div className="App">
+      <section className="workspace">
+
+        <section className="work-head">
+          <div className="work-head-section-1">
+              <SessionTimer />
+          </div>
+          <div className="work-head-section-2">
+            <img src="/images/logo.png" alt="logo" />
+            <p>OBTION - Workspace</p>
+          </div>
+          <div className="work-head-section-3">
+
+            <UserProfile />
+
+            <div className="work-ham-burger">
+              <h1><FontAwesomeIcon icon={faBars} onClick={() => setIsMenuOpen(!isMenuOpen)} style={{ cursor: 'pointer' }} /></h1>
+              {isMenuOpen && (
+                <div className="work-ham-dropdown" style={{ display: 'block' }}>
+                  <div className="work-drop-items">
+                    <div className="work-ham-item"><Link to="/">Home</Link></div>
+                    <div className="work-ham-item"><Link to="/faq">FAQs</Link></div>
+                    <div className="work-ham-item"><Link to="/about">About Us</Link></div>
+                    <div className="work-ham-item"><Link to="/support">Support</Link></div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
+
+        <section className="work-area">
+          <div className="workspace-area">
+            
+            <Toolbar 
+                textAreaRef={textAreaRef} 
+                text={text} 
+                onTextChange={setText} 
+            />
+            
+            <textarea
+              ref={textAreaRef}
+              name="text-space" id="text-space" placeholder=" Title&#10; Write Notes Here"
+              rows="100" cols="220" value={text} onChange={(e) => setText(e.target.value)}
+            ></textarea>
+
+            <div className="work-end">
+              <div className="work-property">
+                <p id="word-count">Word Count: {text.trim() === '' ? 0 : text.trim().split(/\s+/).length} words</p>
+                <FontAwesomeIcon icon={faRotate} style={{ cursor: 'pointer' }} />
+                <FontAwesomeIcon icon={faFloppyDisk} style={{ cursor: 'pointer' }} />
+              </div>
+            </div>
+          </div>
+
+          <Chatbot workspaceContent={text} />
+          
+        </section>
+      </section>
+    </div>
+  );
+}

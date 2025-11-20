@@ -6,7 +6,7 @@ const UserProfile = () => {
   useEffect(() => {
     const currentUserEmail = localStorage.getItem('userEmail');
     
-    fetch('http://localhost:3000/users')
+    fetch('https://obtion-backend.onrender.com/users')
       .then(response => {
         if (!response.ok) throw new Error('Network response was not ok');
         return response.json(); 
@@ -34,5 +34,6 @@ const UserProfile = () => {
 
   return <p className="work-user">{username}</p>;
 };
+
 
 export default UserProfile;

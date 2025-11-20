@@ -47,7 +47,7 @@ function Signup() {
         if (valid) {
             const userData = { name: name.trim(), email, password };
 
-            fetch('http://localhost:3000/users', {
+            fetch('https://obtion-backend.onrender.com/users', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(userData)
@@ -127,5 +127,6 @@ function Signup() {
         </section>
     );
 }
+
 
 export default Signup;
